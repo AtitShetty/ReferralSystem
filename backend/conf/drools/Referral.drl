@@ -1,0 +1,22 @@
+package drools
+
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
+import java.io.FileWriter
+import java.io.IOException
+import java.io.PrintWriter
+
+
+rule "Actor Exchanges"
+      dialect "mvel"
+  when
+      m : Exchanges( date != null )
+  then
+      System.out.println( m.toString() )
+      Path newFilePath = Paths.get("app/drools/exchanges.txt");
+      FileWriter fileWriter = new FileWriter(newFilePath.toString(),true);
+      PrintWriter printWriter = new PrintWriter(fileWriter);
+      printWriter.println(m.toString());
+      printWriter.close();
+end
